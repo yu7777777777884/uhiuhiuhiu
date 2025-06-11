@@ -249,14 +249,6 @@
     greeting.textContent = name ? `哈囉，${name}！歡迎來到我的網站～` : "請輸入名字喔！";
   }
 
-  // 顯示時間
-  function updateClock() {
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString();
-    document.getElementById("clock").textContent = `現在時間：${timeStr}`;
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
 
   // 顯示一句話
   const quotes = [
