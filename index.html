@@ -133,7 +133,21 @@
     .dark-mode .section {
       background: #444;
   }
-
+  #themeToggle {
+    position: fixed;
+    top: 12px;
+    right: 60px; /* 往左一點，避免擋到選單按鈕 */
+    z-index: 1001;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #d63384; /* 搭配你主色調的粉紅色 */
+    transition: transform 0.2s;
+  }
+#themeToggle:hover {
+  transform: scale(1.1);
+}
   </style>
 </head>
 <body>
