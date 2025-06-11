@@ -138,6 +138,7 @@
       <a href="#" onclick="showSection('song')">喜歡的歌</a>
       <a href="#" onclick="showSection('stitch')">貓貓=^^=</a>
     </div>
+    <button id="themeToggle">🌙</button>
   </header>
 
   <div class="main-content">
@@ -219,7 +220,14 @@
     <p>小綠 & 小黑</p>
     <img src="90190.jpg" alt="貓貓=^^=">
   </div>
-
+<div style="margin-top: 30px;">
+  <input type="text" id="nameInput" placeholder="請輸入你的名字">
+  <button onclick="sayHi()">打招呼</button>
+  <div id="greeting" style="margin-top: 10px; font-weight: bold;"></div>
+</div>
+<button onclick="showQuote()" style="margin-top: 20px;">顯示一句話</button>
+    <div id="quote" style="margin-top: 10px; font-style: italic;"></div>
+    <div id="clock" style="margin-top: 20px; font-size: 18px; color: #999;"></div>
   <script>
     function showSection(id) {
       $('.section').hide();
@@ -227,5 +235,42 @@
       $('html, body').animate({ scrollTop: $('#' + id).offset().top - 60 }, 500);
     }
   </script>
+    <script>
+  // 主題模式切換
+  document.getElementById("themeToggle").onclick = function () {
+    document.body.classList.toggle("dark-mode");
+    this.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+  };
+
+  // 打招呼
+  function sayHi() {
+    const name = document.getElementById("nameInput").value.trim();
+    const greeting = document.getElementById("greeting");
+    greeting.textContent = name ? `哈囉，${name}！歡迎來到我的網站～` : "請輸入名字喔！";
+  }
+
+  // 顯示時間
+  function updateClock() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString();
+    document.getElementById("clock").textContent = `現在時間：${timeStr}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // 顯示一句話
+  const quotes = [
+    "旅行是我的快樂泉源。",
+    "我喜歡排球，不只是運動，更是一種態度！",
+    "音樂，是我生活的節奏。",
+    "我喜歡重機 Kawasaki 636～",
+    "你好，世界！這是林芷瑀的自我介紹網站。"
+  ];
+  function showQuote() {
+    const q = quotes[Math.floor(Math.random() * quotes.length)];
+    document.getElementById("quote").textContent = q;
+  }
+</script>
+
 </body>
 </html>
