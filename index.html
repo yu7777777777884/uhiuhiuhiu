@@ -148,19 +148,32 @@
 #themeToggle:hover {
   transform: scale(1.1);
 }
+  .floating-ball {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.5s ease-out;
+    opacity: 1;
+  }
+  .floating-ball.float-away {
+     transform: translateY(-100px);
+    opacity: 0;
+  }
   </style>
 </head>
 <body>
   <header>
     <div class="menu-icon" onclick="$('.menu').slideToggle()">☰</div>
     <div class="menu">
-      <a href="#" onclick="showSection('sport')">喜歡的運動</a>
-      <a href="#" onclick="showSection('group')">喜歡的團體</a>
-      <a href="#" onclick="showSection('singer')">喜歡的歌手</a>
-      <a href="#" onclick="showSection('thing')">喜歡的事</a>
-      <a href="#" onclick="showSection('bike')">喜歡的重機</a>
-      <a href="#" onclick="showSection('anime')">動漫</a>
-      <a href="#" onclick="showSection('song')">喜歡的歌</a>
+      <a href="#" class="menu-link" onclick="showSection('sport')">喜歡的運動</a>
+      <a href="#" class="menu-link" onclick="showSection('group')">喜歡的團體</a>
+      <a href="#" class="menu-link" onclick="showSection('singer')">喜歡的歌手</a>
+      <a href="#" class="menu-link" onclick="showSection('thing')">喜歡的事</a>
+      <a href="#" class="menu-link" onclick="showSection('bike')">喜歡的重機</a>
+      <a href="#" class="menu-link" onclick="showSection('anime')">動漫</a>
+      <a href="#" class="menu-link" onclick="showSection('song')">喜歡的歌</a>
       <a href="#" onclick="showSection('stitch')">貓貓=^^=</a>
     </div>
     <button id="themeToggle">🌙</button>
@@ -173,6 +186,7 @@
     <div class="info">
       <div>姓名：林芷瑀</div>
       <div>生日：2008 / 01 / 21</div>
+      <div id="birthdayCountdown"></div>
       <div>星座：水瓶座</div>
       <div class="about-me">關於我
         <div>想出去玩想出去玩想出去玩想出去玩想出去玩想出去玩</div>
@@ -291,6 +305,36 @@
     const q = quotes[Math.floor(Math.random() * quotes.length)];
     document.getElementById("quote").textContent = q;
   }
+  document.addEventListener("click", function (e) {
+    const ball = document.createElement("div");
+    ball.className = "floating-ball";
+    ball.style.left = e.clientX + "px";// 設定球體位置（點擊位置）
+    ball.style.top = e.clientY + "px";
+    ball.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+    document.body.appendChild(ball);//加入球體到畫面
+    setTimeout(() => {//短暫延遲後啟動動畫
+      ball.classList.add("float-away");
+    }, 10);
+    setTimeout(() => ball.remove(), 510);//移除球體
+  });
+  
+  $(".menu-link").on("click", function () {
+  $(".menu").slideUp(); // 點選連結後關閉選單
+  });
+  $(".menu").on("mouseleave", function () {
+  $(this).slideUp();
+  });
+  function daysUntilBirthday() {
+    const today = new Date();
+    let bday = new Date(today.getFullYear(), 0, 21); // 1月21日
+    if (today > bday) bday.setFullYear(today.getFullYear() + 1);
+      const diff = Math.ceil((bday - today) / (1000 * 60 * 60 * 24));
+      document.getElementById("birthdayCountdown").textContent =
+      `距離生日還有 ${diff} 天！🎂`;
+  }
+  daysUntilBirthday();
+
+
 </script>
 
 </body>
